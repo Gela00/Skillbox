@@ -1,47 +1,59 @@
+'''def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
 def process_commands(commands):
-    # Инициализация пустой очереди и списка для хранения результатов
     queue = []
     results = []
 
-    # Обработка команд
     for command in commands:
         if command[0] == "+":
-            # Добавление элемента в очередь
             queue.append(int(command[1]))
-            # Сортировка очереди в порядке возрастания
-            queue.sort()
+
         elif command[0] == "-":
-            # Удаление элемента из очереди
             queue.pop(0)
+
         elif command[0] == "?":
-            # Добавление минимального элемента в результаты
+            queue = bubble_sort(queue)
             results.append(queue[0])
     return results
 
-# Тестовые данные
 commands = [("+", "5"), ("+", "3"), ("?", ""), ("-", ""), ("?", ""), ("+", "2"), ("?", "")]
-print(process_commands(commands))  # Вывод: [3, 5, 2]
+print(process_commands(commands))'''
 
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
 
-class CustomQueue:
+class Queue:
     def __init__(self):
         self.queue = []
 
+    #добавление элемента
     def push(self, element):
         self.queue.append(element)
-        self.queue.sort()
 
+    # удаление элемента
     def pop(self):
         if len(self.queue) > 0:
             self.queue.pop(0)
 
+    # мин элемент
     def get_min(self):
+        self.queue = bubble_sort(self.queue)
         if len(self.queue) > 0:
             return self.queue[0]
         return None
 
 def process_commands(commands):
-    queue = CustomQueue()
+    queue = Queue()
     results = []
 
     for command in commands:
@@ -56,6 +68,5 @@ def process_commands(commands):
 
     return results
 
-# Тестовые данные
 commands = [("+", "5"), ("+", "3"), ("?", ""), ("-", ""), ("?", ""), ("+", "2"), ("?", "")]
-print(process_commands(commands))  # Вывод: [3, 5, 2]
+print(process_commands(commands))
